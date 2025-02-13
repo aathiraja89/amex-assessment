@@ -7,12 +7,6 @@ This project utilizes Playwright for end-to-end testing of American Express Cred
 - [Introduction](#introduction)
 - [Setup Requirements](#setup-requirements)
 - [Project Architecture](#project-architecture)
-- [Getting Started](#getting-started)
-- [Running Tests](#running-tests)
-- [Reporting](#reporting)
-- [Best Practices](#best-practices)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
