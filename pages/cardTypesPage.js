@@ -5,9 +5,9 @@ export default class CardTypesPage {
     this.page = page;
   }
 
-  async clickOnCard() {
-    const cardNav = this.page.locator('div.container', { hasText: 'Carte Gold American Express®' })
-      .locator('.container')
+  async clickOnCard(cardType) {
+    const cardNav = this.page.locator('div.container', { hasText: cardType })
+      .locator('div.container')
       .getByRole('link', { name: 'En savoir plus' }).nth(1);
 
     await cardNav.scrollIntoViewIfNeeded();

@@ -12,7 +12,7 @@ export function generateFakePersonData() {
   const formattedBirthDate = birthDate.toLocaleDateString('en-GB'); // ISO 8601 format (YYYY-MM-DD) - good for data entry
 
   const email = faker.internet.email({ firstName, lastName }); // Email based on name
-  const mobileNumber = faker.phone.number('##########'); // UK mobile number format (adjust as needed)
+  const mobileNumber = faker.phone.numerify('07########');
 
   return {
     civility: civility,

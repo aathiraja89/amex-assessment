@@ -22,7 +22,7 @@ test(`verify contact submission on for ${cardInTest} card`, async ({ page }) => 
   // await page.waitForTimeout(3000);
   await homePage.acceptCookiePref();
   // await page.waitForTimeout(3000);
-  await cardTypesPage.clickOnCard();
+  await cardTypesPage.clickOnCard('Carte Gold American Express®');
 
   await checkURLContains(page, '/fr-fr/carte-de-paiement/gold-card-americanexpress/?intlink=fr-proprietary-gold&intlink=fr-fr-hp-product1-all-pry_cartes-01032021');
   await checkPageTitle(page, /Gold American Express: La Carte à la Hauteur de Votre Quotidien/);
