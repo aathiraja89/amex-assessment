@@ -5,49 +5,40 @@ import CardTypesPage from '../pages/cardTypesPage'
 import CardDetailsPage from '../pages/cardDetailsPage'
 const { checkPageTitle, checkElementIsVisible, checkElementText, checkURLContains } = require('../actions/assertions');
 
-const cardInTest = 'CARTE GOLD AMERICAN EXPRESS';
+const homePath = '/fr-fr/?inav=NavLogo';
+const cardTypeInTest = 'Cartes American Express';
+const cardInTest = 'Carte Gold American Express';
 
 test(`verify contact submission on for ${cardInTest} card`, async ({ page }) => {
   const homePage = new HomePage(page);
   const cardTypesPage = new CardTypesPage(page);
   const cardDetailsPage = new CardDetailsPage(page);
 
-  await page.goto('/fr-fr/?inav=NavLogo');
-  await checkPageTitle(page, /American Express FR : Cartes de Paiement & Services Privilégiés/);
+  await page.goto(homePath);
+  await checkPageTitle(page, homePage._.title);
   await homePage.acceptCookiePref();
-  await homePage.clickOnCard('Cartes American Express');
+  await homePage.clickOnCard(cardTypeInTest);
 
-  await checkURLContains(page, '/fr/carte-de-paiement/types-cartes/cartes-proprietaires/?intlink=fr-fr-hp-product1-all-pry_cartes-01032021');
-  await checkPageTitle(page, /Cartes American Express : Dépenser + pour Gagner | AMEX France/);
-  // await page.waitForTimeout(3000);
+  // Card Types details
+  await checkURLContains(page, cardTypesPage._.url);
+  await checkPageTitle(page, cardTypesPage._.title);
   await homePage.acceptCookiePref();
-  // await page.waitForTimeout(3000);
-  await cardTypesPage.clickOnCard('Carte Gold American Express®');
+  await cardTypesPage.clickOnCard(cardInTest);
 
-  await checkURLContains(page, '/fr-fr/carte-de-paiement/gold-card-americanexpress/?intlink=fr-proprietary-gold&intlink=fr-fr-hp-product1-all-pry_cartes-01032021');
-  await checkPageTitle(page, /Gold American Express: La Carte à la Hauteur de Votre Quotidien/);
+  // Request Card contact form
+  await checkURLContains(page, cardDetailsPage._.url);
+  await checkPageTitle(page, cardDetailsPage._.title);
   await cardDetailsPage.clickOnRequestCard();
-  await cardDetailsPage.verifyPageHeader();
+  await cardDetailsPage.verifyPageHeader(cardInTest);
   await cardDetailsPage.enterContactDetails();
-  await page.waitForTimeout(3000);
 });
 
 
 test.afterEach(async ({ page }, testInfo) => {
-  if (testInfo.status !== 'passed') { // Check if the test failed or had an error
+  if (testInfo.status !== 'passed') {
     const screenshotPath = `screenshots/${testInfo.title}-${testInfo.retry}-${Date.now()}.png`;
     await page.screenshot({ path: screenshotPath, fullPage: true });
     testInfo.attach('Homepage Screenshot', { path: screenshotPath, contentType: 'image/png' });
-    // console.log(`Screenshot saved for ${testInfo.title}: ${screenshotPath}`);
+    console.log(`Screenshot saved for ${testInfo.title}: ${screenshotPath}`);
   }
 });
-
-// test('get started link', async ({ page }) => {
-//   await page.goto('https://playwright.dev/');
-
-//   // Click the get started link.
-//   await page.getByRole('link', { name: 'Get started' }).click();
-
-//   // Expects page to have a heading with the name of Installation.
-//   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
-// });

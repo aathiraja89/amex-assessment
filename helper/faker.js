@@ -6,13 +6,13 @@ export function generateFakePersonData() {
   const civility = faker.helpers.arrayElement(civilityOptions); // Randomly choose civility
   const firstName = faker.person.firstName();
   const lastName = faker.person.lastName();
-  const fullName = `${firstName} ${lastName}`; // Combine for full name
+  const fullName = `${firstName} ${lastName}`;
 
-  const birthDate = faker.date.birthdate({ min: 18, max: 65, mode: 'age'}); // Realistic age range
-  const formattedBirthDate = birthDate.toLocaleDateString('en-GB'); // ISO 8601 format (YYYY-MM-DD) - good for data entry
+  const birthDate = faker.date.birthdate({ min: 18, max: 65, mode: 'age' }); // Realistic age range
+  const formattedBirthDate = birthDate.toLocaleDateString('en-GB');
 
-  const email = faker.internet.email({ firstName, lastName }); // Email based on name
-  const mobileNumber = faker.phone.numerify('07########');
+  const email = faker.internet.email({ firstName, lastName });
+  const mobileNumber = faker.phone.number();
 
   return {
     civility: civility,

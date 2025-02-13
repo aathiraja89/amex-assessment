@@ -4,7 +4,8 @@ export default class HomePage {
   constructor(page) {
     this.page = page;
     this._ = {
-      cookiesDialog:{
+      title: /American Express FR : Cartes de Paiement & Services Privilégiés/,
+      cookiesDialog: {
         acceptAll_TestId: 'granular-banner-button-accept-all',
       },
       cardTypesNav: 'div.productnav a'
